@@ -63,6 +63,7 @@ if __name__ == '__main__':
     first_frame = cv2.imread(frame_files[0])
     original_height, original_width = first_frame.shape[:2]
     
+    height, width = original_height, original_width  # default: keep original dims
     if args.max_res > 0 and max(original_height, original_width) > args.max_res:
         scale = args.max_res / max(original_height, original_width)
         height = round(original_height * scale)
@@ -82,7 +83,7 @@ if __name__ == '__main__':
         os.makedirs(args.output_dir)
     
     # Get colormap for depth visualization
-    colormap = np.array(cm.get_cmap("inferno").colors)
+    colormap = np.array(cm._colormaps["inferno"].colors)
     
     for frame_count, frame_path in enumerate(frame_files):
         if args.max_len > 0 and frame_count >= args.max_len:
